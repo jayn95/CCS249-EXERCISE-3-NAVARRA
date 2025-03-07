@@ -101,21 +101,6 @@ correct_predictions = sum(1 for i in range(len(predicted_words)) if predicted_wo
 accuracy = correct_predictions / (len(test_tokenized_words) - 2) * 100
 print(f"\nPrediction Accuracy: {accuracy:.2f}%")
 
-# Load and preprocess the training text
-def train_trigram_model(text):
-    # Tokenization (removing punctuation)
-    tokennized_words = [word for word in word_tokenize(text.lower()) if word.isalnum()]
-
-    # Trigram and Bigram Counts
-    trigram_frequency = Counter(trigrams(tokennized_words))
-    bigram_frequency = Counter(zip(tokennized_words[:-1], tokennized_words[1:]))
-
-    # Compute Trigram Probabilities
-    trigram_probs = {trigram: count / bigram_frequency[(trigram[0], trigram[1])]
-                     for trigram, count in trigram_frequency.items() if (trigram[0], trigram[1]) in bigram_frequency}
-    
-    return trigram_probs
-
 # 3
 # (30 points) Using a test sentence “The quick brown fox jumps over the lazy dog near the bank of the river.” 
 # OR generate your own test sentence, create a function that will determine the perplexity score for each trained model.
