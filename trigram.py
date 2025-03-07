@@ -2,7 +2,7 @@ import wikipedia
 from nltk import trigrams
 from nltk.tokenize import word_tokenize
 from collections import Counter
-import string
+import math
 
 # Fetch from Wikipedia page
 wikipedia_page = wikipedia.page("Decision problem")
@@ -101,11 +101,6 @@ correct_predictions = sum(1 for i in range(len(predicted_words)) if predicted_wo
 accuracy = correct_predictions / (len(test_tokenized_words) - 2) * 100
 print(f"\nPrediction Accuracy: {accuracy:.2f}%")
 
-import math
-from nltk import trigrams
-from nltk.tokenize import word_tokenize
-from collections import Counter
-
 # Load and preprocess the training text
 def train_trigram_model(text):
     # Tokenization (removing punctuation)
@@ -139,18 +134,6 @@ def compute_trigram_perplexity(trigram_probability, test_sentence):
 
     perplexity = 2 ** (-log_prob_sum / N)
     return perplexity
-
-# Training Text
-training_text = """
-Computability theory and computational complexity theory focus on decision problems.
-A decision problem can be posed as a yes-no question based on given input values.
-An example of a decision problem is checking whether a given number is prime.
-Another example is verifying if one number evenly divides another.
-Algorithms are used to solve decision problems systematically.
-"""
-
-# Train the trigram model
-trigram_probability = train_trigram_model(training_text)
 
 # Test Sentences
 test_sentences = [
